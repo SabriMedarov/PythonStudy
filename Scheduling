@@ -1,0 +1,24 @@
+jobs = [int(i) for i in input().split(', ')]
+index = float(input())
+clock_cycles = 0
+max_num = 92233720368547758079223372036854775807
+my_bool = True
+
+while my_bool:
+    current = min(jobs)
+    current_index = jobs.index(current)
+
+    if index == current_index:
+        clock_cycles += current
+        jobs[current_index] = max_num
+        counter = 0
+        for match in jobs:
+            if match == current:
+               counter += 1
+
+
+        clock_cycles += current * (counter)
+
+        break
+    else: clock_cycles += current
+    jobs[current_index] = max_num
