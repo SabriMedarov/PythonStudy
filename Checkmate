@@ -1,36 +1,113 @@
-from collections import deque
-test = ([7, 9, 2, 5, 3, 4], 3)
+chess_board = [list(input().split(' ')) for _ in range(8)]
 
-def best_list_pureness(list_object, rotations):
-    new_list = deque(list_object)
-    rots = rotations
+def search_matrix(matrix, search):
+    for y, row in enumerate(matrix):
+        for x, char in enumerate(row):
+            if char == search:
+                return y, x
+            
+king_pos = search_matrix(chess_board, 'K')
+kur = int(king_pos[0])
+queen =[]
+cycles = int(7 - kur)
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if x == 7:
+        break
+    if y == 7:
+        break
+    x += 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+        break
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if y == 7:
+        break
+    y += 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+        break
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if x == 0:
+        break
+    x -= 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+        break
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if y == 0:
+        break
+    y -= 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+        break
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if x == 7:
+        break
+    if y == 7:
+        break
+    x += 1
+    y += 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if x == 0:
+        break
+    if y == 0:
+        break
+    x -= 1
+    y -= 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if x == 7:
+        break
+    if y == 0:
+        break
+    x += 1
+    y -= 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+        break
+x = king_pos[0]
+y = king_pos[1]
+
+while chess_board[x][y] != 'Q':
+    if x == 0:
+        break
+    if y == 7:
+        break
+    x -= 1
+    y += 1
+    if chess_board[x][y] == 'Q':
+        queen.insert(0, f'[{x}, {y}]')
+if queen:
+    for x in queen:
+        print(x)
+else:
+    print("The king is safe!")
 
 
-    bestPurness = 0
-    bestRotations = 0
-    currentPurness = 0
 
 
-    for x in range(0, len(new_list)):
-        currentPurness += x * new_list[x]
-        if currentPurness > bestPurness:
-            bestPurness = currentPurness
 
-    currentPurness = 0
-
-    for x in range(0, rots):
-        new_list.rotate(1)
-        for y in range(0, len(new_list)):
-            currentPurness += y * new_list[y]
-            if currentPurness > bestPurness:
-                bestPurness = currentPurness
-                bestRotations = x +1
-
-
-        currentPurness = 0
-
-    return f"Best pureness {bestPurness} after {bestRotations} rotations"
-
-
-result = best_list_pureness(*test)
-print(result)
